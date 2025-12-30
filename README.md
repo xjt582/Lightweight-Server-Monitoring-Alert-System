@@ -184,7 +184,7 @@ DISK_THRESHOLD = 90
 
 ------
 
-## 📈 项目亮点（面试可讲）
+## 📈 项目亮点
 
 - ✔ 从 **系统层（psutil）→ 数据层（MySQL）→ Web 层（Flask）→ 可视化层（ECharts）** 的完整链路
 - ✔ 使用 crontab 实现自动化采集
