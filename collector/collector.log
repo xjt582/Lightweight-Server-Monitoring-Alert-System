@@ -177,3 +177,4 @@ ImportError: cannot import name 'check_alert' from partially initialized module 
 告警已记录： [2025-12-30 23:13:02] CPU 使用率过高: 25.5%
 告警已记录： [2025-12-30 23:14:02] CPU 使用率过高: 25.4%
 告警已记录： [2025-12-31 00:27:03] CPU 使用率过高: 4.6%
+/bin/sh: 1: /home/tt/monitor/venv/bin/python3: not found
