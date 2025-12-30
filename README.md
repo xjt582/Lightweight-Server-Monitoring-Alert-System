@@ -1,6 +1,8 @@
 # 🖥️ Lightweight Server Monitoring & Alert System
 
-一个基于 **Python + Flask + MySQL + ECharts** 的轻量级服务器性能监控与告警系统，用于实时采集服务器 CPU / 内存 / 磁盘使用率，并通过 Web 看板进行可视化展示，同时支持阈值告警。本项目运行于 Ubuntu 虚拟机环境，Web 监控页面通过物理机浏览器访问并截图。
+一个基于 **Python + Flask + MySQL + ECharts** 的轻量级服务器性能监控与告警系统，用于实时采集服务器 CPU / 内存 / 磁盘使用率，并通过 Web 看板进行可视化展示，同时支持阈值告警。
+
+本项目运行于 Ubuntu 虚拟机环境，Web 监控页面通过物理机浏览器访问并截图。
 
 > 适合：Linux 运维 / 初级 DevOps / Python 自动化方向展示项目
 
