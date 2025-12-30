@@ -1,6 +1,6 @@
 from datetime import datetime
 
-CPU_THRESHOLD = 3
+CPU_THRESHOLD = 80
 MEM_THRESHOLD = 85
 DISK_THRESHOLD = 90
 
