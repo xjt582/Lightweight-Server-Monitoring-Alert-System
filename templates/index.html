@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>服务器性能监控</title>
+
+    <!-- 引入 ECharts -->
+    <script src="https://cdn.staticfile.org/echarts/5.4.3/echarts.min.js"></script>
+
+</head>
+<body>
+
+<h2>服务器性能监控面板</h2>
+<h2>⚠️ 告警信息</h2>
+<ul id="alert-list"></ul>
+
+<div id="cpu" style="width: 800px; height: 300px;"></div>
+<div id="mem" style="width: 800px; height: 300px;"></div>
+<div id="disk" style="width: 800px; height: 300px;"></div>
+
+<script>
+fetch("/metrics")
+
+  .then(res => res.json())
+  .then(data => {
+
+    // 数据反转（按时间正序）
+    data.reverse();
+
+    let times = data.map(i => i.created_at);
+    let cpu = data.map(i => i.cpu_usage);
+    let mem = data.map(i => i.mem_usage);
+    let disk = data.map(i => i.disk_usage);
+
+    function draw(id, title, values) {
+        let chart = echarts.init(document.getElementById(id));
+        chart.setOption({
+            title: { text: title },
+            tooltip: { trigger: 'axis' },
+            xAxis: { type: 'category', data: times },
+            yAxis: { type: 'value', max: 100 },
+            series: [{
+                type: 'line',
+                data: values,
+                smooth: true
+            }]
+        });
+    }
+
+    draw("cpu", "CPU 使用率 (%)", cpu);
+    draw("mem", "内存 使用率 (%)", mem);
+    draw("disk", "磁盘 使用率 (%)", disk);
+});
+
+/* ===== 告警自动刷新 ===== */
+
+function loadAlerts() {
+    fetch("/alerts")
+        .then(res => res.json())
+        .then(data => {
+            let ul = document.getElementById("alert-list");
+            ul.innerHTML = "";
+
+            if (data.length === 0) {
+                ul.innerHTML = "<li>暂无告警</li>";
+                return;
+            }
+
+            data.forEach(a => {
+                let li = document.createElement("li");
+                li.innerText = `[${a.created_at}] ${a.alert_type.toUpperCase()} - ${a.alert_msg}`;
+                li.style.color = "red";
+                ul.appendChild(li);
+            });
+        })
+        .catch(err => {
+            console.error("告警获取失败", err);
+        });
+}
+
+/* 页面加载立即执行一次 */
+loadAlerts();
+
+/* 每 10 秒自动刷新 */
+setInterval(loadAlerts, 10000);
+
+</script>
+
+</body>
+</html>
+
