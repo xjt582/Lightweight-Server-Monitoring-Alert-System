@@ -8,6 +8,7 @@ __pycache__/
 
 # Logs
 *.log
+collector/*.log
 
 # OS
 .DS_Store
